@@ -64,6 +64,11 @@
   .leaflet-popup-content{font-size:13px;line-height:1.4}
   .pin{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.85);box-shadow:0 2px 6px rgba(0,0,0,.5)}
   .pin span{transform:rotate(45deg);font-size:13px}
+  .pin.sm{width:20px;height:20px;border-width:1.5px;opacity:.92}
+  .pin.sm span{font-size:9px}
+  .bk{display:flex;gap:9px;align-items:flex-start;margin:8px 0;cursor:pointer}
+  .bk input{margin-top:2px;accent-color:#2563eb;width:16px;height:16px;flex:0 0 auto}
+  .bk.done span{opacity:.45;text-decoration:line-through}
   .numpin{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.5);color:#0f1115;font-weight:800;font-size:13px}
   #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;background:#111;border:1px solid var(--line);color:#fff;padding:10px 16px;border-radius:24px;font-size:13px;transition:.25s;z-index:900;pointer-events:none}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -95,7 +100,7 @@
 
 <header class="top">
   <h1>🇵🇹 Porto with Lena</h1>
-  <div class="sub"><b>Sun 5 → Fri 10 July 2026</b> · <b>draft</b> · pick a day → see its route on the map</div>
+  <div class="sub"><b>Sun 5 → Fri 10 July 2026</b> · flights & flat <b>booked ✅</b> · pick a day → see its route on the map</div>
 </header>
 
 <div class="wrap">
@@ -106,7 +111,7 @@
   <div id="content"></div>
 
   <footer>
-    Draft — nothing booked yet. Distances are rough street estimates (a bit generous, on purpose). Notes are saved on this device — tap “📋 Copy notes” to send them to Claude. 💛
+    Flights & the flat are booked ✅ — activities aren’t yet: see the “Book now” list on Overview. Distances are rough street estimates (a bit generous, on purpose). Notes & checkmarks live on this device — tap “📋 Copy notes” to send them to Claude. 💛
   </footer>
 </div>
 <div id="toast"></div>
@@ -119,7 +124,8 @@ const DAYS = {
   3:{hex:'#8b5cf6',title:'Tue 7 · Cellars + coast',sub:'Gaia in the morning, Atlantic breeze in the evening',rhythm:'≈ cellars ~10:00 · to the coast from ~18:00 · dinner + sunset',mode:'walking'},
   4:{hex:'#10b981',title:'Wed 8 · Douro Valley',sub:'Scenic train (sit RIGHT) — vineyards, cruise, wine',rhythm:'≈ 09:25 train out · ~18:14 back — a full day',mode:'transit',train:'🚂 ~2h each way'},
   5:{hex:'#3b82f6',title:'Thu 9 · Guimarães',sub:'Medieval birthplace of Portugal',rhythm:'≈ ~09:00 train · back late afternoon',mode:'transit',train:'🚂 ~1h10 each way'},
-  6:{hex:'#94a3b8',title:'Fri 10 · Departure',sub:'Morning free → leave centre ~13:30, flight 16:45',rhythm:'≈ free till ~13:30 · fly 16:45',mode:'transit',train:'✈️ ~1h to airport'}
+  6:{hex:'#94a3b8',title:'Fri 10 · Departure',sub:'Morning free → leave centre ~13:30, flight 16:45',rhythm:'≈ free till ~13:30 · fly 16:45',mode:'transit',train:'✈️ ~1h to airport'},
+  c:{hex:'#c98f4e',title:'☕ Cafés & sit-down spots',sub:'Coffee, cake, wifi — places to land between walks (💻 = laptop-friendly)',rhythm:'no schedule — these also show as small ☕ pins on Day 1–3 & 6 maps',mode:'walking'}
 };
 
 const P = [
@@ -153,7 +159,15 @@ const P = [
   {d:5,e:'🏰',n:'Castle + Paço dos Duques',t:'castle & palace',time:'€5–8',dur:'~1.5h',wiki:'Castle of Guimarães',lat:41.4462,lng:-8.2907,q:'Castelo de Guimaraes',desc:`The 10th-c hilltop castle and the grand Dukes' Palace, a short climb above the old town. Open daily 10–18.`},
   {d:5,e:'🚡',n:'Teleférico da Penha',t:'cable car · optional',time:'optional',dur:'~1.5h',lat:41.4300,lng:-8.2660,q:'Teleferico da Penha, Guimaraes',desc:`Cable car up to the wooded Penha hill for cool air and views — a nice heat-escape if you have energy.`},
 
-  {d:6,e:'✈️',n:'→ Porto Airport (OPO)',t:'departure',time:'leave centre ~13:30',dur:'~1h to get there',lat:41.2360,lng:-8.6790,q:'Porto Airport OPO',desc:`Metro Line E to the airport; bag-drop closes 16:05, flight FR752 at 16:45. Leave the centre by ~13:30.`}
+  {d:6,e:'✈️',n:'→ Porto Airport (OPO)',t:'departure',time:'leave centre ~13:30',dur:'~1h to get there',lat:41.2360,lng:-8.6790,q:'Porto Airport OPO',desc:`Metro Line E to the airport; bag-drop closes 16:05, flight FR752 at 16:45. Leave the centre by ~13:30.`},
+
+  {d:'c',e:'💻',n:'Fábrica Coffee Roasters',t:'specialty · 💻 work-friendly',time:'daily 9–17',dur:'',lat:41.1489,lng:-8.6141,q:'Fabrica Coffee Roasters Porto Rua Jose Falcao',desc:`Industrial-chic roastery with a little back garden, 3 min from Lello/Clérigos — the natural coffee stop on the old-town morning. Roomy, sockets, laptops fine.`},
+  {d:'c',e:'💻',n:'SO Coffee Roasters',t:'specialty · 💻 laptop corner',time:'Mon–Sat 9–17 · Sun till 13:30',dur:'',lat:41.1485,lng:-8.6150,q:'SO Coffee Roasters Porto',desc:`Award-winning baristas right by Igreja do Carmo, with a dedicated laptop space — the best "work an hour or two" spot in the old town.`},
+  {d:'c',e:'☕',n:'C’alma Specialty Coffee Room',t:'specialty · quiet sit-down',time:'Mon–Sat 9–18/19 · Sun closed',dur:'',lat:41.1471,lng:-8.6080,q:'C alma Specialty Coffee Room Porto',desc:`Small, calm tasting room on Rua de Passos Manuel — a quiet breather between Bolhão and the Majestic crowds. Laptops OK, but it's cosy-small.`},
+  {d:'c',e:'💻',n:'Combi Coffee Roasters',t:'roastery · 💻 work-friendly',time:'daily 9–17',dur:'',lat:41.1467,lng:-8.6014,q:'Combi Coffee Roasters Porto',desc:`Roastery café with strong wifi and sockets, ~10 min east of Bolhão in Bonfim — the top pick for a proper couple-of-hours work session.`},
+  {d:'c',e:'🥞',n:'Época',t:'brunch café · Rua do Rosário',time:'daily 9–16 (brunch only)',dur:'',lat:41.1479,lng:-8.6204,q:'Epoca Porto Rua do Rosario',desc:`Nordic-light brunch café on the same street as PATCH — lovely long late breakfast, but it closes at 16:00, so it's a daytime stop.`},
+  {d:'c',e:'🍵',n:'Café Kiwa',t:'matcha · Lena’s list',time:'Tue–Sat 9–17',dur:'',lat:41.1522,lng:-8.6010,q:'Cafe Kiwa Porto',desc:`Lena's list: premium organic matcha and Asian desserts in Bonfim, near Combi — pair the two for a slow afternoon. Closed Sun–Mon.`},
+  {d:'c',e:'☕',n:'7g Roaster',t:'roastery · Gaia side',time:'Tue–Sun 9:30–19 · Mon closed',dur:'',lat:41.1370,lng:-8.6139,q:'7g Roaster Vila Nova de Gaia',desc:`Industrial roastery café on the Gaia side, a short walk uphill from the port cellars — the coffee stop before/after Graham's on Day 3.`}
 ];
 
 const mapsUrl=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
@@ -192,8 +206,10 @@ async function computeRoute(day){
   const r={coords:stops.map(s=>[s.lat,s.lng]),km:km*1.3};routeCache[day]=r;return r;
 }
 
-function pinIcon(p,idx){
+function pinIcon(p,idx,small){
   const hex=DAYS[p.d].hex;
+  if(small) return L.divIcon({className:'',iconSize:[20,20],iconAnchor:[10,18],popupAnchor:[0,-16],
+    html:`<div class="pin sm" style="background:${hex}"><span>${p.e}</span></div>`});
   if(idx==null) return L.divIcon({className:'',iconSize:[28,28],iconAnchor:[14,26],popupAnchor:[0,-24],
     html:`<div class="pin" style="background:${hex}"><span>${p.e}</span></div>`});
   return L.divIcon({className:'',iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-14],
@@ -205,13 +221,19 @@ function drawMap(day){
   const set = day===0 ? P.filter(p=>p.d<=3) : P.filter(p=>p.d===day);
   const pts=[]; let i=0;
   set.forEach(p=>{
-    const isStop = day!==0 && p.e!=='🏠';
+    const isStop = day!==0 && day!=='c' && p.e!=='🏠';
     const idx = isStop ? (++i) : null;
     L.marker([p.lat,p.lng],{icon:pinIcon(p,idx)}).addTo(markerLayer)
      .bindPopup(`<b>${idx?idx+'. ':''}${p.n}</b><br>${p.desc}<br><a href="${mapsUrl(p.q)}" target="_blank" rel="noopener">📍 Open in Google Maps</a>`);
     pts.push([p.lat,p.lng]);
   });
-  if(day!==0){
+  if(day===0||day===1||day===2||day===3||day===6){ // café overlay — small pins, outside the route
+    P.filter(p=>p.d==='c').forEach(p=>{
+      L.marker([p.lat,p.lng],{icon:pinIcon(p,null,true)}).addTo(markerLayer)
+       .bindPopup(`<b>${p.n}</b> · ${p.time}<br>${p.desc}<br><a href="${mapsUrl(p.q)}" target="_blank" rel="noopener">📍 Open in Google Maps</a>`);
+    });
+  }
+  if(day!==0&&day!=='c'){
     const r=routeCache[day];
     if(r&&r.coords.length>1) L.polyline(r.coords,{color:DAYS[day].hex,weight:5,opacity:.85}).addTo(routeLayer);
     const box=(r&&r.coords.length>1)?r.coords:pts;
@@ -225,9 +247,12 @@ function renderMetrics(day){
   const m=document.getElementById('metrics'), hint=document.getElementById('hint');
   if(day===0){
     const km=[1,2,3].reduce((a,d)=>a+(routeCache[d]?routeCache[d].km:0),0);
-    const places=P.filter(p=>p.e!=='🏠'&&p.e!=='✈️').length;
-    m.innerHTML=chip('🗺️ <b>6</b> days')+chip('📍 <b>'+places+'</b> places')+chip('🚶 ≈<b>'+km.toFixed(1)+'</b> km in the city')+chip('🍷 Porto · Douro · Guimarães');
-    hint.textContent='Tap a day above (or a row below) to see its route on the map.';
+    const places=P.filter(p=>p.e!=='🏠'&&p.e!=='✈️'&&p.d!=='c').length;
+    m.innerHTML=chip('🗺️ <b>6</b> days')+chip('📍 <b>'+places+'</b> places')+chip('☕ <b>'+P.filter(p=>p.d==='c').length+'</b> cafés')+chip('🚶 ≈<b>'+km.toFixed(1)+'</b> km in the city');
+    hint.textContent='Tap a day above (or a row below) to see its route. Small ☕ pins = sit-down spots.';
+  } else if(day==='c'){
+    m.innerHTML=chip('☕ <b>'+P.filter(p=>p.d==='c').length+'</b> spots')+chip('💻 = laptop-friendly')+chip('🕘 check the days — some close Sun/Mon');
+    hint.textContent='These also show as small ☕ pins on the Day 1–3 & 6 maps — a sit-down is never far.';
   } else {
     const stops=P.filter(p=>p.d===day&&p.e!=='🏠').length;
     const r=routeCache[day], km=r?r.km:null;
@@ -261,29 +286,41 @@ function cardHTML(p,idx){
       </details>
     </div></div>`;
 }
+const BOOK=[
+  {id:'lello',h:'<b>Livraria Lello</b> — early timed slot · <a href="https://www.livrarialello.pt" target="_blank" rel="noopener">livrarialello.pt</a> (€10, counts toward a book)'},
+  {id:'bolsa',h:'<b>Palácio da Bolsa</b> guided tour, <u>non-Monday</u> · <a href="https://palaciodabolsa.com" target="_blank" rel="noopener">palaciodabolsa.com</a> (€14)'},
+  {id:'grahams',h:'<b>Graham’s cellar tour</b> (Gaia, Tue) — book ~48h ahead · Taylor’s = walk-in backup'},
+  {id:'douro',h:'<b>Douro (Wed):</b> Pinhão rabelo cruise + <b>Quinta do Bomfim</b> — ~1 wk ahead; the train needs no booking'},
+  {id:'clerigos',h:'<b>Clérigos tower</b> — early timed ticket'},
+  {id:'dinners',h:'<b>2 dinner reservations</b> for the weekend nights'}
+];
 function renderContent(day){
   const el=document.getElementById('content');
   if(day===0){
     let h='<div class="toolbar"><button onclick="copyNotes()">📋 Copy notes for Claude</button></div>';
     Object.keys(DAYS).forEach(k=>{const d=DAYS[k];const km=routeCache[k]?routeCache[k].km:null;
       const stops=P.filter(p=>p.d==k&&p.e!=='🏠').length;
-      h+=`<div class="ov-row" onclick="setDay(${k})">
+      h+=`<div class="ov-row" onclick="setDay('${k}')">
         <span class="odot" style="background:${d.hex}"></span>
         <span class="ot"><b>${d.title}</b><small>${d.sub}</small></span>
         <span class="okm">${d.train?d.train.split(' ')[0]+' '+(d.train.match(/~[^ ]+/)||[''])[0]:''}${km!=null?(d.train?' · ':'')+'🚶 ≈'+km.toFixed(1)+'km':''}<br>📍 ${stops}</span>
       </div>`;});
+    h+=`<div class="info"><h2>✅ Book now — July slots sell out</h2>
+      ${BOOK.map(b=>`<label class="bk"><input type="checkbox" data-bk="${b.id}"><span>${b.h}</span></label>`).join('')}
+      <div class="hint" style="margin:8px 0 0">Tick as we book — checkmarks save on this device.</div></div>`;
     h+=`<div class="info"><h2>📌 Good to know</h2>
       <b>Heat:</b> 5–7 Jul warmer, 8–10 cooler — walk early/late, hide indoors midday. Sunset ~21:07.<br>
       <b>Transit:</b> city = walk + Andante; day-trips = separate CP <i>Siga</i> ticket.<br>
       <b>Money:</b> cards everywhere, ~€30–50 cash; tourist tax ~€3/night each at the flat; couvert is paid — refuse if unwanted.<br>
       <b>Food:</b> best value = weekday <i>menu do dia</i> lunch (~€10). Matosinhos seafood = lunch, not dinner.</div>`;
     el.innerHTML=h;
+    wireBook();
   } else {
-    const ru=routeUrl(day), d=DAYS[day]; let i=0;
-    let h=`<div class="dtitle"><span class="badge" style="background:${d.hex}">DAY ${day}</span><h2>${d.title}</h2>
+    const ru=day==='c'?null:routeUrl(day), d=DAYS[day]; let i=0;
+    let h=`<div class="dtitle"><span class="badge" style="background:${d.hex}">${day==='c'?'☕ CAFÉS':'DAY '+day}</span><h2>${d.title}</h2>
       <div class="rhythm">${d.rhythm}</div></div>`;
     if(ru) h+=`<a class="routebtn" href="${ru}" target="_blank" rel="noopener">🗺️ Open this route in Google Maps</a>`;
-    P.filter(p=>p.d===day).forEach(p=>{const idx=p.e!=='🏠'?(++i):null;h+=cardHTML(p,idx);});
+    P.filter(p=>p.d===day).forEach(p=>{const idx=(p.e!=='🏠'&&day!=='c')?(++i):null;h+=cardHTML(p,idx);});
     h+=`<div class="toolbar"><button onclick="copyNotes()">📋 Copy notes for Claude</button></div>`;
     el.innerHTML=h;
     loadPhotos(); wireNotes();
@@ -293,16 +330,17 @@ function renderContent(day){
 // ---- Tabs ----
 const tabsEl=document.getElementById('tabs');
 tabsEl.insertAdjacentHTML('beforeend',`<button data-d="0">Overview</button>`);
-Object.keys(DAYS).forEach(k=>tabsEl.insertAdjacentHTML('beforeend',`<button data-d="${k}" style="border-color:${DAYS[k].hex}55">Day ${k}</button>`));
+Object.keys(DAYS).forEach(k=>tabsEl.insertAdjacentHTML('beforeend',`<button data-d="${k}" style="border-color:${DAYS[k].hex}55">${k==='c'?'☕ Cafés':'Day '+k}</button>`));
 let currentDay=null;
 window.setDay=function(day){
+  if(day!=='c') day=+day;
   currentDay=day;
-  tabsEl.querySelectorAll('button').forEach(b=>{const on=+b.dataset.d===day;
+  tabsEl.querySelectorAll('button').forEach(b=>{const on=b.dataset.d==String(day);
     b.classList.toggle('active',on); b.style.background=on?(day===0?'#eef1f6':DAYS[day].hex):'';});
   drawMap(day); renderMetrics(day); renderContent(day);
   window.scrollTo({top:0,behavior:'smooth'});
 };
-tabsEl.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>setDay(+b.dataset.d)));
+tabsEl.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>setDay(b.dataset.d)));
 
 // ---- Photos + notes (re-wired on each render) ----
 function loadPhotos(){
@@ -324,6 +362,13 @@ function wireNotes(){
     ta.addEventListener('input',()=>{localStorage.setItem(key,ta.value);refresh();});
   });
 }
+function wireBook(){
+  document.querySelectorAll('input[data-bk]').forEach(cb=>{
+    const key='bk:'+cb.dataset.bk, lab=cb.closest('.bk');
+    cb.checked=localStorage.getItem(key)==='1'; lab.classList.toggle('done',cb.checked);
+    cb.addEventListener('change',()=>{localStorage.setItem(key,cb.checked?'1':'0');lab.classList.toggle('done',cb.checked);});
+  });
+}
 function copyNotes(){
   const out=[];P.forEach(p=>{const v=localStorage.getItem('note:'+p.n);if(v&&v.trim())out.push('• '+p.n+': '+v.trim());});
   const text=out.length?('Porto plan — our notes:\n'+out.join('\n')):'No notes yet — tap 💬 on a place to add one.';
@@ -334,7 +379,7 @@ let tt;function toast(m){const t=document.getElementById('toast');t.textContent=
 
 // ---- Boot: compute all routes, then show Overview ----
 setDay(0);
-Promise.all(Object.keys(DAYS).map(k=>computeRoute(+k))).then(()=>{
+Promise.all(Object.keys(DAYS).filter(k=>k!=='c').map(k=>computeRoute(+k))).then(()=>{
   if(currentDay===0){renderMetrics(0);renderContent(0);} else {drawMap(currentDay);renderMetrics(currentDay);}
 });
 </script>
