@@ -123,7 +123,7 @@ const DAYS = {
   2:{hex:'#f0a020',title:'Mon 6 · Historic core',sub:'Old town early, indoors midday, gardens at golden hour',rhythm:'≈ 09:00 start · long lunch ~13:00 · gardens ~18:00',mode:'walking'},
   3:{hex:'#8b5cf6',title:'Tue 7 · Cellars + coast',sub:'Gaia in the morning, Atlantic breeze in the evening',rhythm:'≈ cellars ~10:00 · to the coast from ~18:00 · dinner + sunset',mode:'walking'},
   4:{hex:'#10b981',title:'Wed 8 · Douro Valley',sub:'Scenic train (sit RIGHT) — vineyards, cruise, wine',rhythm:'≈ 09:25 train out · ~18:14 back — a full day',mode:'transit',train:'🚂 ~2h each way'},
-  5:{hex:'#3b82f6',title:'Thu 9 · Guimarães',sub:'Medieval birthplace of Portugal',rhythm:'≈ ~09:00 train · back late afternoon',mode:'transit',train:'🚂 ~1h10 each way'},
+  5:{hex:'#3b82f6',title:'Thu 9 · Miramar beach day',sub:'Cooler day by the Atlantic — chapel on the rocks, boardwalk',rhythm:'≈ ~10:00 train · beach midday · back for dinner',mode:'transit',train:'🚆 ~25 min each way'},
   6:{hex:'#94a3b8',title:'Fri 10 · Departure',sub:'Morning free → leave centre ~13:30, flight 16:45',rhythm:'≈ free till ~13:30 · fly 16:45',mode:'transit',train:'✈️ ~1h to airport'},
   c:{hex:'#c98f4e',title:'☕ Cafés & sit-down spots',sub:'Coffee, cake, wifi — places to land between walks (💻 = laptop-friendly)',rhythm:'no schedule — these also show as small ☕ pins on Day 1–3 & 6 maps',mode:'walking'}
 };
@@ -133,7 +133,6 @@ const P = [
   {d:1,e:'🚶',n:'Ribeira & Cais da Ribeira',t:'riverside',time:'afternoon',dur:'~1–2h',wiki:'Ribeira, Porto',lat:41.1407,lng:-8.6110,q:'Cais da Ribeira, Porto',desc:`The postcard of Porto: colourful medieval houses stacked over the Douro, arcades and boats. Best early or evening.`},
   {d:1,e:'🌉',n:'Ponte Dom Luís I',t:'bridge',time:'',dur:'~45 min',wiki:'Dom Luís I Bridge',lat:41.1399,lng:-8.6094,q:'Ponte Luiz I, Porto',desc:`The iconic double-deck iron bridge. Walk both levels — upper for the big view, lower to cross to the wine cellars.`},
   {d:1,e:'🥧',n:'Manteigaria',t:'pastéis · Lena’s list',time:'',dur:'~15 min',lat:41.1490,lng:-8.6074,q:'Manteigaria Porto Rua de Alexandre Braga',desc:`Warm pastéis de nata straight from the oven. The classic first bite of Porto.`},
-  {d:1,e:'🏛️',n:'Palácio da Bolsa',t:'monument',time:'opt. today (closed Mon!)',dur:'~1h tour',wiki:'Palácio da Bolsa',lat:41.1414,lng:-8.6156,q:'Palacio da Bolsa, Porto',desc:`Opulent 19th-c stock-exchange palace; the gilded "Arabian Hall" is the showstopper. Guided tour only. Do it today or a non-Monday.`},
   {d:1,e:'🌅',n:'Jardim do Morro / Serra do Pilar',t:'sunset viewpoint',time:'sunset ~21:07',dur:'~1h',wiki:'Monastery of Serra do Pilar',lat:41.1372,lng:-8.6098,q:'Jardim do Morro, Vila Nova de Gaia',desc:`The classic sunset spot across the river, looking back at Porto and the bridge. Go up via the bridge upper deck or the Gaia cable car.`},
 
   {d:2,e:'📚',n:'Livraria Lello',t:'the bookshop',time:'early slot',dur:'~45 min',wiki:'Livraria Lello',lat:41.1470,lng:-8.6146,q:'Livraria Lello, Porto',desc:`The dreamy neo-gothic bookshop with the swirling red staircase. Timed ticket (€10, redeemable on a book); go at opening.`},
@@ -155,9 +154,9 @@ const P = [
   {d:4,e:'⛵',n:'Rabelo river cruise (Pinhão)',t:'boat · book ahead',time:'~15:00',dur:'~1–2h',wiki:'Douro',lat:41.1900,lng:-7.5455,q:'Pinhao river cruise pier',desc:`A 1–2h boat on the Douro from Pinhão pier — the calm, breezy way to soak up the gorge. Pre-book this.`},
   {d:4,e:'🍇',n:'Quinta do Bomfim',t:'wine estate · book ~1wk',time:'lunch',dur:'~1.5h',lat:41.1889,lng:-7.5480,q:'Quinta do Bomfim, Pinhao',desc:`A riverside wine estate 5 min from Pinhão station — vineyard walk, cellar, tasting. Book ahead for July.`},
 
-  {d:5,e:'🏘️',n:'Guimarães old town',t:'UNESCO centre',time:'~1h10 train',dur:'~2h',wiki:'Guimarães',lat:41.4423,lng:-8.2925,q:'Largo da Oliveira, Guimaraes',desc:`Beautifully preserved medieval streets around Largo da Oliveira — "Portugal was born here". Compact and walkable.`},
-  {d:5,e:'🏰',n:'Castle + Paço dos Duques',t:'castle & palace',time:'€5–8',dur:'~1.5h',wiki:'Castle of Guimarães',lat:41.4462,lng:-8.2907,q:'Castelo de Guimaraes',desc:`The 10th-c hilltop castle and the grand Dukes' Palace, a short climb above the old town. Open daily 10–18.`},
-  {d:5,e:'🚡',n:'Teleférico da Penha',t:'cable car · optional',time:'optional',dur:'~1.5h',lat:41.4300,lng:-8.2660,q:'Teleferico da Penha, Guimaraes',desc:`Cable car up to the wooded Penha hill for cool air and views — a nice heat-escape if you have energy.`},
+  {d:5,e:'🚆',n:'Miramar station',t:'CP urban · Aveiro line',time:'~10:00, ~25 min',dur:'~25 min ride',lat:41.0483,lng:-8.6520,q:'Miramar train station, Gaia',desc:`Hop the CP urban (Aveiro line) from São Bento/Campanhã — about 25 min south down the coast. A quick walk from the platform to the sea.`},
+  {d:5,e:'⛪',n:'Capela do Senhor da Pedra',t:'chapel on the rocks',time:'midday',dur:'~30 min',wiki:'Capela do Senhor da Pedra',lat:41.046,lng:-8.660,q:'Capela do Senhor da Pedra, Miramar',desc:`A tiny 17th-century hexagonal chapel perched on the rocks in the middle of Miramar beach, waves lapping its base — the photo of the day.`},
+  {d:5,e:'🏖️',n:'Miramar beach & boardwalk',t:'beach · boardwalk',time:'afternoon',dur:'~2–3h',lat:41.0500,lng:-8.6535,q:'Praia de Miramar, Gaia',desc:`Wide sandy beach with a wooden boardwalk stroll through the dunes. Atlantic ~17°C — a bracing dip, not a swim; bring sunscreen. Optional extension: 2 stops on to Espinho (bigger beach town), or Ovar + bus to Praia do Furadouro. Back to Porto by evening for the last-night dinner (reserve).`},
 
   {d:6,e:'✈️',n:'→ Porto Airport (OPO)',t:'departure',time:'leave centre ~13:30',dur:'~1h to get there',lat:41.2360,lng:-8.6790,q:'Porto Airport OPO',desc:`Metro Line E to the airport; bag-drop closes 16:05, flight FR752 at 16:45. Leave the centre by ~13:30.`},
 
@@ -287,12 +286,11 @@ function cardHTML(p,idx){
     </div></div>`;
 }
 const BOOK=[
-  {id:'lello',h:'<b>Livraria Lello</b> — early timed slot · <a href="https://www.livrarialello.pt" target="_blank" rel="noopener">livrarialello.pt</a> (€10, counts toward a book)'},
-  {id:'bolsa',h:'<b>Palácio da Bolsa</b> guided tour, <u>non-Monday</u> · <a href="https://palaciodabolsa.com" target="_blank" rel="noopener">palaciodabolsa.com</a> (€14)'},
-  {id:'grahams',h:'<b>Graham’s cellar tour</b> (Gaia, Tue) — book ~48h ahead · Taylor’s = walk-in backup'},
-  {id:'douro',h:'<b>Douro (Wed):</b> Pinhão rabelo cruise + <b>Quinta do Bomfim</b> — ~1 wk ahead; the train needs no booking'},
-  {id:'clerigos',h:'<b>Clérigos tower</b> — early timed ticket'},
-  {id:'dinners',h:'<b>2 dinner reservations</b> for the weekend nights'}
+  {id:'lello',h:'<b>Livraria Lello</b> — earliest slot <u>Mon 6 Jul</u> · <a href="https://www.livrarialello.pt" target="_blank" rel="noopener">livrarialello.pt</a> (€10, counts toward a book)'},
+  {id:'clerigos',h:'<b>Clérigos</b> — early timed ticket <u>Mon 6 Jul</u>'},
+  {id:'grahams',h:'<b>Graham’s cellar tour</b> — <u>Tue 7 Jul morning</u> · Taylor’s = walk-in fallback'},
+  {id:'douro',h:'<b>Douro (Wed 8 Jul):</b> rabelo cruise at Pinhão + <b>Quinta do Bomfim</b> — ~1 wk ahead; the train needs no booking'},
+  {id:'dinners',h:'<b>Dinner reservations</b> — <u>Sun 5</u> + <u>Thu 9</u> (last night)'}
 ];
 function renderContent(day){
   const el=document.getElementById('content');
@@ -312,7 +310,7 @@ function renderContent(day){
       <b>Heat:</b> 5–7 Jul warmer, 8–10 cooler — walk early/late, hide indoors midday. Sunset ~21:07.<br>
       <b>Transit:</b> city = walk + Andante; day-trips = separate CP <i>Siga</i> ticket.<br>
       <b>Money:</b> cards everywhere, ~€30–50 cash; tourist tax ~€3/night each at the flat; couvert is paid — refuse if unwanted.<br>
-      <b>Food:</b> best value = weekday <i>menu do dia</i> lunch (~€10). Matosinhos seafood = lunch, not dinner.</div>`;
+      <b>Food:</b> best value = weekday <i>menu do dia</i> lunch (~€10).</div>`;
     el.innerHTML=h;
     wireBook();
   } else {
