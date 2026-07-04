@@ -121,9 +121,9 @@
 const DAYS = {
   1:{hex:'#e0567a',title:'Sun 5 · Arrival',sub:'Land 10:20 → settle, easy first evening',rhythm:'≈ from ~12:00 · take it slow · sunset ~21:07',mode:'walking'},
   2:{hex:'#f0a020',title:'Mon 6 · Historic core',sub:'Old town early, indoors midday, gardens at golden hour',rhythm:'≈ 09:00 start · long lunch ~13:00 · gardens ~18:00',mode:'walking'},
-  3:{hex:'#8b5cf6',title:'Tue 7 · Cellars + coast',sub:'Gaia in the morning, Atlantic breeze in the evening',rhythm:'≈ cellars ~10:00 · to the coast from ~18:00 · dinner + sunset',mode:'walking'},
+  3:{hex:'#8b5cf6',title:'Tue 7 · Gaia + coast',sub:'Gaia riverside + cable car in the morning, Atlantic breeze in the evening',rhythm:'≈ Gaia stroll ~10:00 · to the coast from ~18:00 · dinner + sunset',mode:'walking'},
   4:{hex:'#10b981',title:'Wed 8 · Douro Valley',sub:'Scenic train (sit RIGHT) — vineyards, cruise, wine',rhythm:'≈ 09:25 train out · ~18:14 back — a full day',mode:'transit',train:'🚂 ~2h each way'},
-  5:{hex:'#3b82f6',title:'Thu 9 · Miramar beach day',sub:'Cooler day by the Atlantic — chapel on the rocks, boardwalk',rhythm:'≈ ~10:00 train · beach midday · back for dinner',mode:'transit',train:'🚆 ~25 min each way'},
+  5:{hex:'#3b82f6',title:'Thu 9 · Graham’s + Miramar beach',sub:'Booked cellar tour in Gaia, then a cooler afternoon by the Atlantic',rhythm:'≈ Graham’s 10:30 · lunch in Gaia · train + beach from ~15:00 · back for dinner',mode:'transit',train:'🚆 ~25 min each way'},
   6:{hex:'#94a3b8',title:'Fri 10 · Departure',sub:'Morning free → leave centre ~13:30, flight 16:45',rhythm:'≈ free till ~13:30 · fly 16:45',mode:'transit',train:'✈️ ~1h to airport'},
   c:{hex:'#c98f4e',title:'☕ Cafés & sit-down spots',sub:'Coffee, cake, wifi — places to land between walks (💻 = laptop-friendly)',rhythm:'no schedule — these also show as small ☕ pins on Day 1–3 & 6 maps',mode:'walking'}
 };
@@ -145,7 +145,8 @@ const P = [
   {d:2,e:'🛍️',n:'PATCH',t:'vintage · Lena’s list',time:'',dur:'~30 min',lat:41.1489,lng:-8.6170,q:'PATCH Lifestyle Concept Store Porto',desc:`Vintage & lifestyle concept store near the Bombarda gallery block. (Open Mon.)`},
   {d:2,e:'💿',n:'Socorro',t:'records · Lena’s list',time:'',dur:'~30 min',lat:41.1493,lng:-8.6055,q:'Socorro Record Store Porto',desc:`Record shop near Bolhão / Santa Catarina. (Open Mon.)`},
 
-  {d:3,e:'🍷',n:'Port cellars — Gaia (Graham’s)',t:'wine · book ~48h',time:'morning',dur:'~1.5h',wiki:'Vila Nova de Gaia',lat:41.1390,lng:-8.6203,q:'Graham’s Port Lodge, Vila Nova de Gaia',desc:`Cross the river for a tour + tasting in the barrel cellars. Graham's (hilltop) has the best view; Taylor's is a walk-in fallback.`},
+  {d:3,e:'🚶',n:'Cais de Gaia riverside stroll',t:'riverside · morning',time:'morning',dur:'~1h',wiki:'Vila Nova de Gaia',lat:41.1382,lng:-8.6135,q:'Cais de Gaia, Vila Nova de Gaia',desc:`Cross the lower deck of the bridge and wander the Gaia waterfront under the rabelo boats and cellar signs. Grab coffee at 7g Roaster (☕ pin) a short walk uphill.`},
+  {d:3,e:'🍷',n:'Taylor’s (optional walk-in)',t:'wine · self-guided ~€20',time:'optional',dur:'~1h',lat:41.1350,lng:-8.6155,q:'Taylor’s Port Cellar, Vila Nova de Gaia',desc:`No booking needed: Taylor's takes walk-ins for a self-guided audio tour + tasting (~€20), with a lovely hilltop terrace. Skip if you'd rather save the tasting for Graham's on Thu.`},
   {d:3,e:'🚡',n:'Teleférico de Gaia',t:'cable car',time:'',dur:'~15 min',lat:41.1379,lng:-8.6110,q:'Teleferico de Gaia',desc:`Short cable-car ride up to Jardim do Morro / the bridge upper deck (€7). Ride up, walk back across the bridge.`},
   {d:3,e:'🚋',n:'Tram Line 1 → Foz',t:'to the coast',time:'evening',dur:'~40 min ride',lat:41.1408,lng:-8.6155,q:'Tram Line 1 Infante stop Porto',desc:`Charming vintage tram along the river to Foz (€6; or bus 500 if the queue is long).`},
   {d:3,e:'🏖️',n:'Foz do Douro & Farol de Felgueiras',t:'coast · sunset · dinner',time:'evening',dur:'~2–3h',wiki:'Foz do Douro',lat:41.1447,lng:-8.6797,q:'Farol de Felgueiras, Foz do Douro',desc:`Where the Douro meets the Atlantic: a lighthouse on a stone pier, sea breeze, promenade cafés. Porto's best ocean sunset — dinner here.`},
@@ -154,9 +155,11 @@ const P = [
   {d:4,e:'⛵',n:'Rabelo river cruise (Pinhão)',t:'boat · book ahead',time:'~15:00',dur:'~1–2h',wiki:'Douro',lat:41.1900,lng:-7.5455,q:'Pinhao river cruise pier',desc:`A 1–2h boat on the Douro from Pinhão pier — the calm, breezy way to soak up the gorge. Pre-book this.`},
   {d:4,e:'🍇',n:'Quinta do Bomfim',t:'wine estate · book ~1wk',time:'lunch',dur:'~1.5h',lat:41.1889,lng:-7.5480,q:'Quinta do Bomfim, Pinhao',desc:`A riverside wine estate 5 min from Pinhão station — vineyard walk, cellar, tasting. Book ahead for July.`},
 
-  {d:5,e:'🚆',n:'Miramar station',t:'CP urban · Aveiro line',time:'~10:00, ~25 min',dur:'~25 min ride',lat:41.0483,lng:-8.6520,q:'Miramar train station, Gaia',desc:`Hop the CP urban (Aveiro line) from São Bento/Campanhã — about 25 min south down the coast. A quick walk from the platform to the sea.`},
+  {d:5,e:'🍷',n:'Graham’s Port Lodge',t:'wine · ✅ booked',time:'10:30 ✅ booked',dur:'~2h',wiki:'Vila Nova de Gaia',lat:41.1330,lng:-8.6210,q:'Graham’s Port Lodge, Vila Nova de Gaia',desc:`10:30 ✅ booked — English tour + 3-port tasting, 2h, ends 12:30. Arrive ~15 min early; it's up the Gaia hill (Rua do Agro 141), so allow the climb. Best cellar view in Gaia.`},
+  {d:5,e:'🍽️',n:'Lunch in Gaia',t:'lunch · riverside',time:'~12:45',dur:'~1h',lat:41.1382,lng:-8.6140,q:'Cais de Gaia restaurants',desc:`Drop back down to the Cais de Gaia waterfront for lunch after the tour, then head to São Bento/Campanhã for the coast train.`},
+  {d:5,e:'🚆',n:'Miramar station',t:'CP urban · Aveiro line',time:'~14:30, ~25 min',dur:'~25 min ride',lat:41.0483,lng:-8.6520,q:'Miramar train station, Gaia',desc:`Hop the CP urban (Aveiro line) from São Bento/Campanhã — about 25 min south down the coast. A quick walk from the platform to the sea.`},
   {d:5,e:'⛪',n:'Capela do Senhor da Pedra',t:'chapel on the rocks',time:'midday',dur:'~30 min',wiki:'Capela do Senhor da Pedra',lat:41.046,lng:-8.660,q:'Capela do Senhor da Pedra, Miramar',desc:`A tiny 17th-century hexagonal chapel perched on the rocks in the middle of Miramar beach, waves lapping its base — the photo of the day.`},
-  {d:5,e:'🏖️',n:'Miramar beach & boardwalk',t:'beach · boardwalk',time:'afternoon',dur:'~2–3h',lat:41.0500,lng:-8.6535,q:'Praia de Miramar, Gaia',desc:`Wide sandy beach with a wooden boardwalk stroll through the dunes. Atlantic ~17°C — a bracing dip, not a swim; bring sunscreen. Optional extension: 2 stops on to Espinho (bigger beach town), or Ovar + bus to Praia do Furadouro. Back to Porto by evening for the last-night dinner (reserve).`},
+  {d:5,e:'🏖️',n:'Miramar beach & boardwalk',t:'beach · boardwalk',time:'from ~15:00',dur:'~2–3h',lat:41.0500,lng:-8.6535,q:'Praia de Miramar, Gaia',desc:`Wide sandy beach with a wooden boardwalk stroll through the dunes — nicest after 15:00 when the light softens and crowds thin. Atlantic ~17°C — a bracing dip, not a swim; bring sunscreen. Optional extension: 2 stops on to Espinho (bigger beach town), or Ovar + bus to Praia do Furadouro. Back to Porto by evening for the last-night dinner (reserve).`},
 
   {d:6,e:'✈️',n:'→ Porto Airport (OPO)',t:'departure',time:'leave centre ~13:30',dur:'~1h to get there',lat:41.2360,lng:-8.6790,q:'Porto Airport OPO',desc:`Metro Line E to the airport; bag-drop closes 16:05, flight FR752 at 16:45. Leave the centre by ~13:30.`},
 
@@ -286,10 +289,10 @@ function cardHTML(p,idx){
     </div></div>`;
 }
 const BOOK=[
-  {id:'lello',h:'<b>Livraria Lello</b> — earliest slot <u>Mon 6 Jul</u> · <a href="https://www.livrarialello.pt" target="_blank" rel="noopener">livrarialello.pt</a> (€10, counts toward a book)'},
-  {id:'clerigos',h:'<b>Clérigos</b> — early timed ticket <u>Mon 6 Jul</u>'},
-  {id:'grahams',h:'<b>Graham’s cellar tour</b> — <u>Tue 7 Jul morning</u> · Taylor’s = walk-in fallback'},
-  {id:'douro',h:'<b>Douro (Wed 8 Jul):</b> rabelo cruise at Pinhão + <b>Quinta do Bomfim</b> — ~1 wk ahead; the train needs no booking'},
+  {id:'lello',h:'<b>Livraria Lello</b> — ✅ booked <u>Mon 6 Jul 09:45</u> · <a href="https://www.livrarialello.pt" target="_blank" rel="noopener">livrarialello.pt</a> (€10, counts toward a book)'},
+  {id:'grahams',h:'<b>Graham’s cellar tour</b> — ✅ booked <u>Thu 9 Jul 10:30</u> (English tour + 3-port tasting, 2h)'},
+  {id:'clerigos',h:'<b>Clérigos</b> — early timed ticket <u>Mon 6 Jul 11:00</u>'},
+  {id:'douro',h:'<b>Douro (Wed 8 Jul):</b> rabelo cruise at Pinhão + <b>Quinta do Bomfim 15:30</b> — ~1 wk ahead; the train needs no booking'},
   {id:'dinners',h:'<b>Dinner reservations</b> — <u>Sun 5</u> + <u>Thu 9</u> (last night)'}
 ];
 function renderContent(day){
